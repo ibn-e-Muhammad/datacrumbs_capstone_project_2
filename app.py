@@ -52,8 +52,9 @@ if prompt := st.chat_input("Ask a question about Lumiere..."):
     # Get bot response
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            history = st.session_state.messages[:-1] # Pass history before current prompt
-            response = manager.get_answer(prompt, history)
+            # Pass the previous messages as chat history
+            history = st.session_state.messages[:-1]
+            response = manager.get_answer(prompt, chat_history=history)
         st.markdown(response)
     
     # Append assistant message

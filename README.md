@@ -27,12 +27,7 @@ Lumiere AI Assistant is a Retrieval-Augmented Generation (RAG) chatbot designed 
   - If the rate exceeds the threshold (e.g., trying to call the LLM faster than every 10 seconds), the system intelligently pauses execution using `time.sleep()`. 
   - This absolutely guarantees we will never hit a 429 RateLimitError, prioritizing stability over speed.
 
-### 4. Contextual Chat History
-- To make the assistant feel natural and capable of follow-up questions, we implemented conversational memory.
-- Rather than using a complex two-step ConversationalRetrievalChain (which would consume 2 LLM requests per query and severely cripple our 6 RPM limit), we format the last 6 messages (3 interactions) and inject them directly into the system prompt.
-- This provides the LLM with immediate context while preserving API requests and adhering strictly to rate limits.
-
-### 5. Data Processing & Chunking
+### 4. Data Processing & Chunking
 - **Loaders:** We used LangChain's `TextLoader` for unstructured text and `UnstructuredExcelLoader` for our Excel product database.
 - **Chunking Strategy:** Documents are split using `RecursiveCharacterTextSplitter` with `chunk_size=500` and `chunk_overlap=50`. This smaller chunk size was explicitly chosen to:
   1. Retrieve highly focused context snippets.
@@ -43,7 +38,12 @@ Lumiere AI Assistant is a Retrieval-Augmented Generation (RAG) chatbot designed 
 - **Color Palette:** A premium combination of **Light Cream Red** (`#E6B8B8`) and **Warm Off-White** (`#FAFAF8`).
 - **Experience:** Hover animations on chat bubbles, custom rounded inputs, and hidden default branding create a polished, production-ready feel rather than a generic template.
 
-### 6. Error Handling
+### 6. Chat History Memory
+- **Feature:** We implemented conversation memory to allow follow-up questions.
+- **Constraint Management:** To adhere to the strict free-tier limits (both the 6 RPM rate limit and the ~200k daily token limit), we explicitly restrict the memory to **only the last 3 messages**. 
+- **Implementation:** The UI `app.py` passes the sliced message history to `rag.py`, which injects it directly into the LangChain `ChatPromptTemplate` so the model has recent context without overloading tokens.
+
+### 7. Error Handling
 - The pipeline is surrounded by `try/except` blocks. If files are missing, the UI gracefully informs the user rather than crashing. 
 - The system prompt strictly enforces hallucination prevention: if the answer isn't in the retrieved chunks, the LLM will explicitly respond with "I don't know."
 

@@ -110,14 +110,20 @@ class RAGManager:
         if not self.retriever:
             return "System is not properly initialized. Data missing."
 
+        # Format the last 3 messages into a string
+        history_str = "No recent history."
+        if chat_history:
+            recent_history = chat_history[-3:]
+            history_str = "\n".join([f"{msg['role'].capitalize()}: {msg['content']}" for msg in recent_history])
+
         template = """You are a helpful company chatbot. Answer the question based ONLY on the following context.
 If the answer is not contained in the context, you MUST say "I don't know". Do not try to make up an answer.
 
 Context:
 {context}
 
-Recent Chat History:
-{chat_history}
+Recent Chat History (Max 3 messages):
+{history_str}
 
 Question:
 {question}
@@ -128,19 +134,9 @@ Answer:"""
         def format_docs(docs):
             return "\n\n".join(doc.page_content for doc in docs)
 
-        if chat_history is None:
-            chat_history = []
-            
-        # Format the last 6 messages (3 interactions) to preserve token limits
-        formatted_history = "\n".join([f"{msg['role'].capitalize()}: {msg['content']}" for msg in chat_history[-6:]])
-
         rag_chain = (
-            {
-                "context": self.retriever | format_docs, 
-                "question": RunnablePassthrough(),
-                "chat_history": lambda x: formatted_history
-            }
-            | prompt
+            {"context": self.retriever | format_docs, "question": RunnablePassthrough()}
+            | prompt.partial(history_str=history_str)
             | self.llm
             | StrOutputParser()
         )
