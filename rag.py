@@ -106,7 +106,7 @@ class RAGManager:
             logger.error(f"Failed to create vector store: {e}")
             raise e
 
-    def get_answer(self, query: str) -> str:
+    def get_answer(self, query: str, chat_history: list = None) -> str:
         if not self.retriever:
             return "System is not properly initialized. Data missing."
 
@@ -115,6 +115,9 @@ If the answer is not contained in the context, you MUST say "I don't know". Do n
 
 Context:
 {context}
+
+Recent Chat History:
+{chat_history}
 
 Question:
 {question}
@@ -125,8 +128,18 @@ Answer:"""
         def format_docs(docs):
             return "\n\n".join(doc.page_content for doc in docs)
 
+        if chat_history is None:
+            chat_history = []
+            
+        # Format the last 6 messages (3 interactions) to preserve token limits
+        formatted_history = "\n".join([f"{msg['role'].capitalize()}: {msg['content']}" for msg in chat_history[-6:]])
+
         rag_chain = (
-            {"context": self.retriever | format_docs, "question": RunnablePassthrough()}
+            {
+                "context": self.retriever | format_docs, 
+                "question": RunnablePassthrough(),
+                "chat_history": lambda x: formatted_history
+            }
             | prompt
             | self.llm
             | StrOutputParser()
