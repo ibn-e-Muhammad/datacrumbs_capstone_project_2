@@ -1,0 +1,86 @@
+/* Premium Light Cream Red & Warm Off-White Theme */
+
+/* Base Streamlit App Background */
+.stApp {
+    background-color: #FAFAF8; /* Warm off-white */
+    color: #333333;
+    font-family: 'Inter', 'Outfit', sans-serif;
+}
+
+/* Hide Streamlit Branding */
+#MainMenu {visibility: hidden;}
+header {visibility: hidden;}
+footer {visibility: hidden;}
+
+/* Chat Bubbles */
+.stChatMessage {
+    background-color: transparent;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    color: #333333 !important;
+}
+
+.stChatMessage p, .stChatMessage div, .stChatMessage span, .stChatMessage li {
+    color: #333333 !important;
+}
+
+.stChatMessage:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+/* User Message */
+[data-testid="stChatMessage"]:nth-child(even) {
+    background-color: #ffffff;
+    border-left: 4px solid #E6B8B8; /* Light cream red accent */
+}
+
+/* Assistant Message */
+[data-testid="stChatMessage"]:nth-child(odd) {
+    background-color: #FDF9F7; /* Very light cream */
+    border-left: 4px solid #D69C9C; /* Slightly darker cream red accent */
+}
+
+/* Chat Input styling */
+.stChatInput > div {
+    background-color: #ffffff;
+    border: 1px solid #E6B8B8;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(230, 184, 184, 0.2);
+    transition: all 0.3s ease;
+}
+
+.stChatInput > div textarea {
+    color: #333333 !important;
+}
+
+.stChatInput > div:focus-within {
+    border-color: #D69C9C;
+    box-shadow: 0 4px 15px rgba(214, 156, 156, 0.4);
+}
+
+/* Typography and headings */
+h1 {
+    color: #8C5454; /* Deep premium red for headings */
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #FAFAF8; 
+}
+::-webkit-scrollbar-thumb {
+    background: #E6B8B8; 
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #D69C9C; 
+}

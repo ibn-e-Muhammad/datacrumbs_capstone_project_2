@@ -1,0 +1,24 @@
+# Lumiere Health Technologies - Company Information
+Last Updated: June 2026
+
+## About Us
+Lumiere Health Technologies is a pioneering health-tech company founded in 2018, dedicated to democratizing access to preventative healthcare through intelligent wearables and AI-driven insights. Our headquarters is located in Austin, Texas, with satellite offices in London and Singapore.
+
+## Core Mission
+To empower individuals with actionable health data, fostering a proactive approach to well-being that extends lifespans and enhances life quality.
+
+## Employee Policies
+- **Remote Work**: We operate on a flexible hybrid model. Employees are expected to be in the office Tuesday through Thursday, with Monday and Friday available for remote work. Fully remote positions are evaluated on a case-by-case basis.
+- **Vacation**: We offer a generous "Take What You Need" unlimited PTO policy, with a minimum requirement of 15 days taken per year to ensure employee rest and mental health.
+- **Health Insurance**: Full coverage for medical, dental, and vision is provided for all full-time employees and their dependents through Blue Cross Blue Shield.
+- **Wellness Stipend**: Employees receive a $100 monthly stipend for gym memberships, wellness apps, or fitness equipment.
+
+## Support & Contacts
+- IT Support: it-help@lumierehealth.com
+- HR Department: hr@lumierehealth.com
+- Facilities: facilities@lumierehealth.com
+
+## Product Roadmap Highlights (2026-2027)
+- Q3 2026: Launch of the Lumiere V-Sync Smart Ring with advanced sleep staging.
+- Q4 2026: Integration of personalized dietary recommendations in the Lumiere Health App.
+- Q1 2027: Beta testing for the continuous non-invasive glucose monitoring module.
